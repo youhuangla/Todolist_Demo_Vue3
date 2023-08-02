@@ -22,19 +22,36 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
+const localStorageKey = 'todosData';
 
 // 定义一个响应式数据
 const title = ref('');
-const todos = ref([
+const todos = ref(JSON.parse(localStorage.getItem(localStorageKey)) || [
   { title: 'Eat', done: false },
   { title: 'Sleep', done: false },
   { title: 'Code', done: false }
 ]);
+
+const saveDataToLocalStorage = () => {
+  localStorage.setItem(localStorageKey, JSON.stringify(todos.value));
+};
+
+onMounted(() => {
+  const savedData = JSON.parse(localStorage.getItem(localStorageKey));
+  if (savedData) {
+    todos.value = savedData;
+  }
+});
+
+onBeforeUnmount(() => {
+  saveDataToLocalStorage();
+});
+
 const addTodo = () => {
   todos.value.push({ title: title.value, done: false });
   title.value = '';
+  saveDataToLocalStorage();
 };
 const active = computed(() => {
   return todos.value.filter(v => !v.done).length;
@@ -48,10 +65,12 @@ const allDone = computed({
   },
   set(value) {
     todos.value.forEach(v => v.done = value);
+    saveDataToLocalStorage();
   }
 });
 const clear = () => {
   todos.value = todos.value.filter(v => !v.done);
+  saveDataToLocalStorage();
 };
 </script>
 
