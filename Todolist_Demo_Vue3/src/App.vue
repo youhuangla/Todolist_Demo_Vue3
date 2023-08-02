@@ -22,7 +22,7 @@ const todos = ref([
   { title: 'Code', done: false }
 ]);
 const addTodo = () => {
-  todos.value.push({ title: title.value, done: true });
+  todos.value.push({ title: title.value, done: false });
   title.value = '';
 };
 </script>
