@@ -10,14 +10,15 @@
     </li>
   </ul>
   <div>
-    {{ todos.filter(v => !v.done).length }}
+    {{ active }}
     /
-    {{ todos.length }}
+    {{ all }}
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+
 
 // 定义一个响应式数据
 const title = ref('');
@@ -30,6 +31,12 @@ const addTodo = () => {
   todos.value.push({ title: title.value, done: false });
   title.value = '';
 };
+const active = computed(() => {
+  return todos.value.filter(v => !v.done).length;
+});
+const all = computed(() => {
+  return todos.value.length;
+});
 </script>
 
 <style>
