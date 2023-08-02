@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h2>{{ title }}</h2>
-    <input type="text" v-model="title">
+    <input type="text" v-model="title" @keydown.enter="addTodo">
   </div>
   <ul>
     <li v-for="todo in todos">
@@ -16,6 +16,10 @@ import { ref } from 'vue';
 // 定义一个响应式数据
 const title = ref('');
 const todos = ref(['Eat', 'Sleep', 'Code']);
+const addTodo = () => {
+  todos.value.push(title.value);
+  title.value = '';
+};
 </script>
 
 <style>
