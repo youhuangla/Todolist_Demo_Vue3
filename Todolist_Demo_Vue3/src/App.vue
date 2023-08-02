@@ -9,6 +9,11 @@
       <span :class="{ done: todo.done }">{{ todo.title }}</span>
     </li>
   </ul>
+  <div>
+    {{ todos.filter(v => !v.done).length }}
+    /
+    {{ todos.length }}
+  </div>
 </template>
 
 <script setup>
