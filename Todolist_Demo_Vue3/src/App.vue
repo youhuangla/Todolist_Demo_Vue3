@@ -10,9 +10,8 @@
     </li>
   </ul>
   <div>
-    {{ active }}
-    /
-    {{ all }}
+    <input type="checkbox" v-model="allDone"> Select All
+    <span>{{ active }} / {{ all }}</span>
   </div>
 </template>
 
@@ -36,6 +35,14 @@ const active = computed(() => {
 });
 const all = computed(() => {
   return todos.value.length;
+});
+const allDone = computed({
+  get() {
+    return active.value === 0;
+  },
+  set(value) {
+    todos.value.forEach(v => v.done = value);
+  }
 });
 </script>
 
