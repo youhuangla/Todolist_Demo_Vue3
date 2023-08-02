@@ -13,6 +13,9 @@
     <input type="checkbox" v-model="allDone"> Select All
     <span>{{ active }} / {{ all }}</span>
   </div>
+  <div v-if="active < all">
+    <button @click="clear">Clear</button>
+  </div>
 </template>
 
 <script setup>
@@ -44,6 +47,9 @@ const allDone = computed({
     todos.value.forEach(v => v.done = value);
   }
 });
+const clear = () => {
+  todos.value = todos.value.filter(v => !v.done);
+};
 </script>
 
 <style>
