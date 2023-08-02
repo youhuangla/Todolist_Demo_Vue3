@@ -5,7 +5,7 @@
   </div>
   <ul>
     <li v-for="todo in todos">
-      {{ todo }}
+      {{ todo.title }}
     </li>
   </ul>
 </template>
@@ -15,9 +15,12 @@ import { ref } from 'vue';
 
 // 定义一个响应式数据
 const title = ref('');
-const todos = ref(['Eat', 'Sleep', 'Code']);
+const todos = ref([
+  {title: 'Eat'}, 
+  {title: 'Sleep'}, 
+  {title: 'Code'}]);
 const addTodo = () => {
-  todos.value.push(title.value);
+  todos.value.push({title: title.value});
   title.value = '';
 };
 </script>
