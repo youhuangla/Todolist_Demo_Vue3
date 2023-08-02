@@ -3,12 +3,15 @@
     <h2>{{ title }}</h2>
     <input type="text" v-model="title" @keydown.enter="addTodo">
   </div>
-  <ul>
+  <ul v-if="todos.length">
     <li v-for="todo in todos" :key="todo.title">
       <input type="checkbox" v-model="todo.done">
       <span :class="{ done: todo.done }">{{ todo.title }}</span>
     </li>
   </ul>
+  <div v-else>
+    <p>Nothing to do</p>
+  </div>
   <div>
     <input type="checkbox" v-model="allDone"> Select All
     <span>{{ active }} / {{ all }}</span>
